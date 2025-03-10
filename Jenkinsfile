@@ -42,24 +42,8 @@ pipeline {
         always {
             // Archiver les rapports Surefire
             archiveArtifacts artifacts: '**/target/surefire-reports/', fingerprint: true
-        }
 
-        success {
-            echo '✅ Les tests Selenium ont réussi.'
-        }
-
-        failure {
-            echo "❌ Les tests Selenium ont échoué."
-        }
-
-        unstable {
-            echo '⚠️ Les tests sont instables.'
-        }
-    }
-
-    // Intégration du rapport Cucumber
-    post {
-        always {
+            // Intégration du rapport Cucumber
             script {
                 cucumber buildStatus: 'UNSTABLE',
                     failedFeaturesNumber: 1,
@@ -75,7 +59,18 @@ pipeline {
                     sortingMethod: 'ALPHABETICAL',
                     trendsLimit: 100
             }
-            echo 'Tests terminés. Vérifiez la sortie console pour les détails !'
+        }
+
+        success {
+            echo '✅ Les tests Selenium ont réussi.'
+        }
+
+        failure {
+            echo "❌ Les tests Selenium ont échoué."
+        }
+
+        unstable {
+            echo '⚠️ Les tests sont instables.'
         }
     }
 }
