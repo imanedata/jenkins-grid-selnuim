@@ -47,7 +47,6 @@ public class WebDriverTool {
         if (driver != null) {
             driver.quit();
             driver = null;
-            System.out.println("WebDriver fermé avec succès.");
         }
     }
 }
